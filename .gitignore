@@ -1,0 +1,22 @@
+.amanda/
+
+# Python
+**/__pycache__/
+**/*.pyc
+.venv/
+venv/
+
+# Django local files
+django-backend/.env
+django-backend/db.sqlite3
+
+# Node/Angular
+recipes-frontend/node_modules/
+recipes-frontend/dist/
+recipes-frontend/.angular/
+
+# IDE/OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
