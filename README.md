@@ -4,12 +4,12 @@ Aplicacao full stack para gerar receitas a partir de uma descricao do usuario, u
 
 ## Objetivo
 
-Este projeto foi construido para praticar arquitetura limpa, boas praticas de separacao de responsabilidades e experiencia de usuario.
+Este projeto foi construido para praticar angular e django.
 
 Fluxo principal:
 - usuario descreve o prato desejado;
 - frontend envia a descricao para o backend;
-- backend chama a OpenAI e retorna uma receita estruturada em JSON;
+- backend chama a api da OpenAI e retorna uma receita estruturada em JSON;
 - frontend exibe checklist de ingredientes e preparo, e salva a ultima receita no localStorage.
 
 ## Arquitetura
@@ -106,9 +106,8 @@ Response:
 - Persistencia local da ultima receita
 - Estrutura preparada para evolucao (testes e novas features)
 
-## Proximos passos sugeridos
+## Proximos passos
 
-- Adicionar testes unitarios no frontend e backend
-- Adicionar logs estruturados no backend
 - Criar pagina de historico de receitas
+- Criar página de progresso de receita em andamento
 - Melhorar acessibilidade e responsividade
