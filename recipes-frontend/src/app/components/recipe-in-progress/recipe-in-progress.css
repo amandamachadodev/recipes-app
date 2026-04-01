@@ -1,0 +1,142 @@
+.two-cols {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 18px;
+  margin-top: 8px;
+}
+
+.ingredients-col,
+.steps-col {
+  background: #f8faff;
+  border: 1px solid #e5ebfb;
+  border-radius: 10px;
+  padding: 14px;
+}
+
+.ingredients-box,
+.steps-box {
+  margin: 12px 0 18px;
+  background: #f8faff;
+  border: 1px solid #e5ebfb;
+  border-radius: 10px;
+  padding: 14px;
+  min-width: 750px;
+  max-width: 750px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+.ingredients {
+  margin: 0;
+  padding-left: 18px;
+  color: #374151;
+}
+
+@media (max-width: 800px) {
+  .two-cols {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  margin: 0 auto;
+  max-width: 760px;
+}
+
+h1,
+.meta,
+.progress-wrap,
+.progress-label {
+  text-align: center;
+}
+
+.ingredients-box,
+.steps {
+  text-align: left;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 680px;
+}
+
+.progress-track {
+  height: 10px;
+  border-radius: 999px;
+  background: #e6ecff;
+  overflow: hidden;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
+  transition: width 0.25s ease;
+}
+
+.progress-wrap {
+  margin: 12px 0 18px;
+}
+
+.progress-label {
+  font-weight: 600;
+  color: #2c3f66;
+  margin-bottom: 8px;
+}
+
+.finish-btn {
+  margin: 16px auto 0;
+  display: block;
+  min-width: 260px;
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  color: #fff;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+  box-shadow: 0 6px 14px rgba(22, 163, 74, 0.25);
+  cursor: pointer;
+  transition:
+    transform 0.05s ease,
+    filter 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.finish-btn:hover:not(:disabled) {
+  filter: brightness(1.05);
+  box-shadow: 0 8px 18px rgba(22, 163, 74, 0.32);
+}
+
+.finish-btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.finish-btn:disabled {
+  background: #9ca3af;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.finish-btn:focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.35);
+}
+
+.ingredients li,
+.steps li {
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+
+.step-label {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.step-text.done {
+  text-decoration: line-through;
+  color: #6b7280;
+}

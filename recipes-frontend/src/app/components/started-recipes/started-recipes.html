@@ -1,0 +1,25 @@
+<div class="page">
+  <div class="wrap">
+    <h1>Receitas em preparo</h1>
+
+    <p class="subtitle" *ngIf="recipes.length === 0">Nenhuma receita em preparo.</p>
+
+    <div class="grid" *ngIf="recipes.length > 0">
+      <article class="card" *ngFor="let r of recipes">
+        <header class="card-head">
+          <h3 class="title">{{ r.title }}</h3>
+          <p class="meta">{{ progress(r) }}% concluído</p>
+        </header>
+
+        <ul class="ingredients">
+          <li *ngFor="let i of r.ingredients | slice: 0 : 3">{{ i }}</li>
+          <li *ngIf="r.ingredients.length > 3">+ {{ r.ingredients.length - 3 }} ingredientes</li>
+        </ul>
+
+        <footer class="card-actions">
+          <button class="btn" (click)="continueRecipe(r.id)">Continuar preparo</button>
+        </footer>
+      </article>
+    </div>
+  </div>
+</div>

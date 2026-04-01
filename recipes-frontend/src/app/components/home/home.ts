@@ -1,53 +1,49 @@
 import { Component, OnInit } from '@angular/core';
-import { Receita, RecipeResponse, SendDescriptionRecipeService } from '../../services/send-description-recipe';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { TimeoutError, timeout } from 'rxjs';
+import { SendDescriptionRecipeService } from '../../services/send-description-recipe';
 import { RecipeStorageService } from '../../services/recipe-storage.service';
+import { RecipeResponse, RecipeStorage } from '../../models/recipe.model';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.html',
   styleUrl: './home.css',
-  imports: [FormsModule, CommonModule]
+  imports: [FormsModule, CommonModule],
 })
 export class HomeComponent implements OnInit {
-  descricao = '';
-  receitaGerada: Receita | null = null;
+  description = '';
+  generatedRecipe: RecipeStorage | null = null;
   loading = false;
   error: string | null = null;
-  ingredientesChecked: boolean[] = [];
-  passosChecked: boolean[] = [];
 
   constructor(
     private readonly recipeApiService: SendDescriptionRecipeService,
-    private readonly recipeStorageService: RecipeStorageService
+    private readonly recipeStorageService: RecipeStorageService,
+    private readonly router: Router,
   ) {}
 
   ngOnInit(): void {
-    const savedRecipe = this.recipeStorageService.getLastRecipe();
-    if (savedRecipe) {
-      this.setRecipe(savedRecipe);
-    }
+    this.generatedRecipe = this.recipeStorageService.getLastGeneratedRecipe();
   }
 
   gerar(): void {
-    const normalizedDescription = this.descricao.trim();
+    const normalizedDescription = this.description.trim();
     if (!normalizedDescription || this.loading) return;
 
     this.loading = true;
     this.error = null;
-    this.receitaGerada = null;
-  
+
     this.recipeApiService
-      .gerarReceita(normalizedDescription)
+      .generateRecipe(normalizedDescription)
       .pipe(timeout(45000))
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: (res: RecipeResponse) => {
-          this.setRecipe(res.receita);
-          this.recipeStorageService.saveLastRecipe(res.receita);
+          this.generatedRecipe = this.recipeStorageService.upsertGeneratedRecipe(res.recipe);
         },
         error: (err: unknown) => {
           if (err instanceof TimeoutError) {
@@ -59,17 +55,14 @@ export class HomeComponent implements OnInit {
       });
   }
 
+  startRecipe(): void {
+    if (!this.generatedRecipe) return;
+    const recipe = this.recipeStorageService.startRecipe(this.generatedRecipe.id);
+    if (!recipe) return;
+    this.router.navigate(['/in-progress', recipe.id]);
+  }
+
   get canSubmit(): boolean {
-    return !!this.descricao.trim() && !this.loading;
-  }
-
-  private setRecipe(recipe: Receita): void {
-    this.receitaGerada = recipe;
-    this.ingredientesChecked = this.createUncheckedList(recipe.ingredientes.length);
-    this.passosChecked = this.createUncheckedList(recipe.passos.length);
-  }
-
-  private createUncheckedList(size: number): boolean[] {
-    return Array.from({ length: size }, () => false);
+    return !!this.description.trim() && !this.loading;
   }
 }

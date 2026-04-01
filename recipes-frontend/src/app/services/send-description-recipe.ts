@@ -1,18 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-export interface Receita {
-  titulo: string;
-  porcoes: string;
-  tempo_preparo: string;
-  ingredientes: string[];
-  passos: string[];
-}
-
-export interface RecipeResponse {
-  receita: Receita;
-}
+import { RecipeResponse } from '../models/recipe.model';
 
 @Injectable({ providedIn: 'root' })
 export class SendDescriptionRecipeService {
@@ -20,10 +9,9 @@ export class SendDescriptionRecipeService {
 
   constructor(private readonly http: HttpClient) {}
 
-  gerarReceita(descricao: string): Observable<RecipeResponse> {
-    return this.http.post<RecipeResponse>(
-      `${this.baseUrl}/receitas/gerar/`,
-      { descricao: descricao.trim() }
-    );
+  generateRecipe(description: string): Observable<RecipeResponse> {
+    return this.http.post<RecipeResponse>(`${this.baseUrl}/recipes/generate/`, {
+      description: description.trim(),
+    });
   }
 }

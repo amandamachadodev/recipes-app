@@ -1,48 +1,44 @@
 <div class="page">
-    <div class="card">
-        <h1>Gerar receita</h1>
-        <p class="subtitle">Descreva os ingredientes ou o prato que você quer.</p>
+  <div class="card">
+    <h1>Gerar receita</h1>
+    <p class="subtitle">Descreva os ingredientes ou o prato que você quer.</p>
 
-        <textarea rows="5" [(ngModel)]="descricao" placeholder="Ex: Strogonoff de frango com arroz..."></textarea>
+    <textarea
+      rows="5"
+      [(ngModel)]="description"
+      placeholder="Ex: Strogonoff de frango com arroz..."
+    ></textarea>
 
-        <button (click)="gerar()" [disabled]="!canSubmit">
-            {{ loading ? 'Gerando receita...' : 'Gerar receita' }}
-        </button>
+    <button (click)="gerar()" [disabled]="!canSubmit">
+      {{ loading ? 'Gerando receita...' : 'Gerar receita' }}
+    </button>
 
-        <div *ngIf="error" class="feedback error">{{ error }}</div>
+    <div *ngIf="error" class="feedback error">{{ error }}</div>
 
-        <section *ngIf="receitaGerada as receita" class="result">
-            <h2>{{ receita.titulo }}</h2>
-            <p class="meta">
-                <span>{{ receita.porcoes }}</span>
-                <span>{{ receita.tempo_preparo }}</span>
-            </p>
+    <section *ngIf="generatedRecipe as recipe" class="result">
+      <h2>{{ recipe.title }}</h2>
+      <p class="meta">
+        <span>{{ recipe.portions }}</span>
+        <span>{{ recipe.preparationTime }}</span>
+      </p>
 
-            <div class="columns">
-                <div class="column">
-                    <h3>Ingredientes</h3>
-                    <ul class="checklist">
-                        <li *ngFor="let item of receita.ingredientes; let i = index">
-                            <label>
-                                <input type="checkbox" [(ngModel)]="ingredientesChecked[i]" />
-                                <span [class.checked]="ingredientesChecked[i]">{{ item }}</span>
-                            </label>
-                        </li>
-                    </ul>
-                </div>
+      <div class="columns">
+        <div class="column">
+          <h3>Ingredientes</h3>
+          <ul>
+            <li *ngFor="let item of recipe.ingredients">{{ item }}</li>
+          </ul>
+        </div>
 
-                <div class="column">
-                    <h3>Preparo</h3>
-                    <ol class="checklist ordered">
-                        <li *ngFor="let step of receita.passos; let i = index">
-                            <label>
-                                <input type="checkbox" [(ngModel)]="passosChecked[i]" />
-                                <span [class.checked]="passosChecked[i]">{{ step }}</span>
-                            </label>
-                        </li>
-                    </ol>
-                </div>
-            </div>
-        </section>
-    </div>
+        <div class="column">
+          <h3>Preparo</h3>
+          <ol>
+            <li *ngFor="let step of recipe.steps">{{ step }}</li>
+          </ol>
+        </div>
+      </div>
+
+      <button (click)="startRecipe()">Iniciar receita</button>
+    </section>
+  </div>
 </div>

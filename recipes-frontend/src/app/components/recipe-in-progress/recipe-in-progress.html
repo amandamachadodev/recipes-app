@@ -1,0 +1,44 @@
+<div class="page" *ngIf="recipe as r; else notFound">
+  <div class="card">
+    <h1>{{ r.title }}</h1>
+    <p class="meta">{{ r.portions }} • {{ r.preparationTime }}</p>
+
+    <div class="progress-wrap">
+      <div class="progress-label">Progresso: {{ progress }}%</div>
+      <div class="progress-track">
+        <div class="progress-bar" [style.width.%]="progress"></div>
+      </div>
+    </div>
+
+    <section class="ingredients-box">
+      <h3>Ingredientes</h3>
+      <ul class="ingredients">
+        <li *ngFor="let item of r.ingredients">{{ item }}</li>
+      </ul>
+    </section>
+
+    <section class="steps-box">
+      <h3>Passo a passo</h3>
+      <ol class="steps">
+        <li class="step-item" *ngFor="let step of r.steps; let i = index">
+          <label class="step-label">
+            <input type="checkbox" [checked]="isChecked(i)" (change)="toggleStep(i)" />
+            <span class="step-text" [class.done]="isChecked(i)">{{ step }}</span>
+          </label>
+        </li>
+      </ol>
+    </section>
+
+    <button class="finish-btn" (click)="finishRecipe()" [disabled]="progress < 100">
+      Concluir receita
+    </button>
+  </div>
+</div>
+
+<ng-template #notFound>
+  <div class="page">
+    <div class="card">
+      <p>Receita não encontrada.</p>
+    </div>
+  </div>
+</ng-template>

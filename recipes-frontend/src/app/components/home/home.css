@@ -1,162 +1,166 @@
 :host,
 html,
 body {
-    height: 100%;
+  height: 100%;
 }
 
 body {
-    margin: 0;
+  margin: 0;
 }
 
 .page {
-    min-height: 100vh;
-    display: grid;
-    place-items: center;
-    padding: 24px;
-    background: linear-gradient(135deg, #f5f7ff 0%, #eef6ff 100%);
-    font-family: Inter, Arial, sans-serif;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: linear-gradient(135deg, #f5f7ff 0%, #eef6ff 100%);
+  font-family: Inter, Arial, sans-serif;
 }
 
 .card {
-    width: 100%;
-    max-width: 720px;
-    background: #fff;
-    border: 1px solid #e8ecf5;
-    border-radius: 16px;
-    padding: 24px;
-    box-shadow: 0 12px 30px rgba(26, 42, 79, 0.08);
+  width: 100%;
+  max-width: 720px;
+  background: #fff;
+  border: 1px solid #e8ecf5;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 12px 30px rgba(26, 42, 79, 0.08);
 }
 
 h1 {
-    margin: 0 0 8px;
-    font-size: 28px;
-    color: #1d2a44;
-    text-align: center;
+  margin: 0 0 8px;
+  font-size: 28px;
+  color: #1d2a44;
+  text-align: center;
 }
 
 .subtitle {
-    margin: 0 0 16px;
-    color: #5f6b85;
-    text-align: center;
+  margin: 0 0 16px;
+  color: #5f6b85;
+  text-align: center;
 }
 
 textarea {
-    width: 100%;
-    min-height: 120px;
-    padding: 12px 14px;
-    border-radius: 10px;
-    border: 1px solid #ccd5e7;
-    outline: none;
-    font-size: 14px;
-    line-height: 1.4;
-    box-sizing: border-box;
-    transition: border-color .2s, box-shadow .2s;
+  width: 100%;
+  min-height: 120px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #ccd5e7;
+  outline: none;
+  font-size: 14px;
+  line-height: 1.4;
+  box-sizing: border-box;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 }
 
 textarea:focus {
-    border-color: #5b7cfa;
-    box-shadow: 0 0 0 3px rgba(91, 124, 250, 0.2);
+  border-color: #5b7cfa;
+  box-shadow: 0 0 0 3px rgba(91, 124, 250, 0.2);
 }
 
 button {
-    margin-top: 12px;
-    width: 100%;
-    border: 0;
-    border-radius: 10px;
-    padding: 12px 14px;
-    font-size: 15px;
-    font-weight: 600;
-    color: #fff;
-    background: #4f6ef7;
-    cursor: pointer;
-    transition: filter .2s, transform .04s;
+  margin-top: 12px;
+  width: 100%;
+  border: 0;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  background: #4f6ef7;
+  cursor: pointer;
+  transition:
+    filter 0.2s,
+    transform 0.04s;
 }
 
 button:hover:not(:disabled) {
-    filter: brightness(1.05);
+  filter: brightness(1.05);
 }
 
 button:active:not(:disabled) {
-    transform: translateY(1px);
+  transform: translateY(1px);
 }
 
 button:disabled {
-    background: #b8c2dd;
-    cursor: not-allowed;
+  background: #b8c2dd;
+  cursor: not-allowed;
 }
 
 .feedback {
-    margin-top: 12px;
-    color: #38507a;
-    font-size: 14px;
-    text-align: center;
+  margin-top: 12px;
+  color: #38507a;
+  font-size: 14px;
+  text-align: center;
 }
 
 .feedback.error {
-    color: #b42318;
-    font-weight: 600;
+  color: #b42318;
+  font-weight: 600;
 }
 
 .result {
-    margin-top: 20px;
-    border-top: 1px solid #edf1fa;
-    padding-top: 16px;
+  margin-top: 20px;
+  border-top: 1px solid #edf1fa;
+  padding-top: 16px;
 }
 
 .result h2 {
-    margin: 0 0 10px;
-    font-size: 18px;
-    color: #1d2a44;
-    text-align: center;
+  margin: 0 0 10px;
+  font-size: 18px;
+  color: #1d2a44;
+  text-align: center;
 }
 
 .meta {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    color: #5f6b85;
-    margin-bottom: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  color: #5f6b85;
+  margin-bottom: 12px;
 }
 
 .columns {
-    display: grid;
-    gap: 16px;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
 
 .column {
-    background: #f8faff;
-    border: 1px solid #e5ebfb;
-    border-radius: 10px;
-    padding: 14px;
+  background: #f8faff;
+  border: 1px solid #e5ebfb;
+  border-radius: 10px;
+  padding: 14px;
 }
 
 .column h3 {
-    margin-top: 0;
+  margin-top: 0;
 }
 
 .checklist {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .checklist.ordered {
-    list-style: decimal;
-    padding-left: 18px;
+  list-style: decimal;
+  padding-left: 18px;
 }
 
 .checklist li {
-    margin-bottom: 8px;
+  margin-bottom: 8px;
 }
 
 .checklist label {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
 }
 
 .checklist span.checked {
-    text-decoration: line-through;
-    color: #5f6b85;
+  text-decoration: line-through;
+  color: #5f6b85;
 }
