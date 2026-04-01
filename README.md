@@ -1,43 +1,60 @@
 # Recipes App
 
-Aplicacao full stack para gerar receitas a partir de uma descricao do usuario, usando Angular no frontend e Django no backend com integracao OpenAI.
+Aplicação full‑stack para gerar receitas a partir de uma descrição do usuário.
+Frontend em Angular, backend em Django, integração com OpenAI. Foco em boas práticas,
+arquitetura em camadas e UX com fluxo completo de preparo de receita.
 
-## Objetivo
 
-Este projeto foi construido para praticar angular e django.
+## Demo (screens)
 
-Fluxo principal:
-- usuario descreve o prato desejado;
-- frontend envia a descricao para o backend;
-- backend chama a api da OpenAI e retorna uma receita estruturada em JSON;
-- frontend exibe checklist de ingredientes e preparo, e salva a ultima receita no localStorage.
+- Geração e visualização de receita (detalhe de ingredientes e modo de preparo)
+- Iniciar receita → tela de preparo com checklist e progresso
+- Listas de “Em preparo” e “Concluídas”
 
-## Arquitetura
+<video src="./assets/demo.mp4"
+       controls
+       width="720"
+       preload="metadata"
+       poster="./assets/demo.png"
+       type="video/mp4">
+</video>
+
+
+## Principais features
+
+- Geração de receita via OpenAI e retorno estruturado em JSON
+- Tela de preparo com:
+  - checklist de passos (risca quando marcado)
+  - cálculo de progresso em tempo real
+  - botão “Concluir receita”
+- Navegação por seções: Início, Iniciadas, Concluídas
+- Persistência local de receitas e estados (LocalStorage)
+- Tratamento de erros/timeout de chamada à API
+- Formatação de código padronizada (Prettier no frontend; Black/isort no backend)
+
+
+## Arquitetura (visão geral)
 
 ### Frontend (`recipes-frontend`)
-- Angular (standalone components)
-- `HomeComponent`: UI e orquestracao de estado da tela
-- `SendDescriptionRecipeService`: comunicacao HTTP com backend
-- `RecipeStorageService`: persistencia local (localStorage)
+- Angular (standalone components, router)
+- `HomeComponent`: gera e exibe a última receita gerada; ação “Iniciar receita”
+- `RecipeInProgressComponent`: preparo com checklist e barra de progresso
+- `StartedRecipesComponent`: cards de receitas em preparo
+- `FinishedRecipesComponent`: cards de receitas concluídas (com “iniciar novamente”)
+- `SendDescriptionRecipeService`: comunicação HTTP com backend
+- `RecipeStorageService`: estado/persistência local de receitas
 
 ### Backend (`django-backend`)
-- Django
-- `view.py`: camada HTTP (entrada/saida e codigos de status)
-- `recipe_service.py`: regras de negocio e integracao com OpenAI
+- `view.py`: endpoint HTTP; validação e mapeamento de resposta
+- `recipe_service.py`: regras de negócio + chamada à OpenAI (chat.completions)
 
-## Tecnologias
-
-- Angular
-- TypeScript
-- Django
-- Python
-- OpenAI API
 
 ## Requisitos
 
 - Node.js 18+
-- Python 3.11+ (ou compativel com suas libs instaladas)
-- Chave da OpenAI
+- Python 3.11+
+- Variável `OPENAI_API_KEY`
+
 
 ## Como rodar localmente
 
@@ -50,13 +67,13 @@ python -m venv .venv
 python -m pip install django python-dotenv openai httpx django-cors-headers
 ```
 
-Crie um arquivo `.env` em `django-backend`:
+Crie `.env` em `django-backend`:
 
 ```env
-OPENAI_API_KEY=sua_chave_aqui
+OPENAI_API_KEY=coloque_sua_chave_aqui
 ```
 
-Suba o servidor:
+Inicie:
 
 ```bash
 python manage.py runserver
@@ -70,17 +87,18 @@ npm install
 npm start
 ```
 
-Acesse: `http://localhost:4200`
+Acesse `http://localhost:4200`.
 
-## API
 
-### `POST /api/receitas/gerar/`
+## API (contrato atual)
+
+### `POST /api/recipes/generate/`
 
 Request:
 
 ```json
 {
-  "descricao": "strogonoff de frango com arroz"
+  "description": "strogonoff de frango com arroz"
 }
 ```
 
@@ -88,26 +106,42 @@ Response:
 
 ```json
 {
-  "receita": {
-    "titulo": "Strogonoff de frango",
-    "porcoes": "4 porcoes",
-    "tempo_preparo": "40 minutos",
-    "ingredientes": ["..."],
-    "passos": ["..."]
+  "recipe": {
+    "title": "Strogonoff de frango",
+    "portions": "4 porções",
+    "preparationTime": "40 minutos",
+    "ingredients": ["..."],
+    "steps": ["..."]
   }
 }
 ```
 
-## Boas praticas aplicadas
 
-- Separacao de responsabilidades (UI, API, armazenamento local, dominio)
-- Tipagem explicita no frontend
-- Tratamento de erros e timeout para evitar loading infinito
-- Persistencia local da ultima receita
-- Estrutura preparada para evolucao (testes e novas features)
+## Decisões técnicas
 
-## Proximos passos
+- Conversão e validação do retorno da OpenAI garantem JSON com chaves previsíveis
+- Estado de receita: `new` | `in_progress` | `completed`
+- Progresso baseado em `stepsCompleted.length / steps.length`
+- UI com componentes pequenos, rotas claras e estilos consistentes
 
-- Criar pagina de historico de receitas
-- Criar página de progresso de receita em andamento
-- Melhorar acessibilidade e responsividade
+
+## Qualidade & DX
+
+- Formatação: Prettier (frontend), Black/isort (backend)
+- Arquivo `.editorconfig` para padronizar indentação e EOLs
+- Tratamento de erros e mensagens amigáveis no frontend
+
+Scripts úteis (frontend):
+
+```bash
+npm run format        # formata tudo em src/
+npm run format:check  # checagem sem alterar código
+```
+
+
+## Roadmap
+
+- Testes unitários (services e componentes críticos)
+- Mock de backend para desenvolvimento offline
+- Docker Compose para subir frontend+backend com um comando
+- Acessibilidade e dark mode
