@@ -11,8 +11,10 @@ arquitetura em camadas e UX com fluxo completo de preparo de receita.
 - Iniciar receita → tela de preparo com checklist e progresso
 - Listas de “Em preparo” e “Concluídas”
 
-<video src="https://raw.githubusercontent.com/amandamachadodev/recipes-app/main/assets/demo.mp4"
-       controls width="720" type="video/mp4"></video>
+<video src="https://github.com/amandamachadodev/recipes-app/issues/1"
+       controls
+       width="720"
+       type="video/mp4"></video>
 
 ## Principais features
 
