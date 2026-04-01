@@ -11,13 +11,7 @@ arquitetura em camadas e UX com fluxo completo de preparo de receita.
 - Iniciar receita → tela de preparo com checklist e progresso
 - Listas de “Em preparo” e “Concluídas”
 
-<video src="./assets/demo.mp4"
-       controls
-       width="720"
-       preload="metadata"
-       poster="./assets/demo.png"
-       type="video/mp4">
-</video>
+<video src="./assets/demo.mp4" controls width="720" type="video/mp4"></video>
 
 
 ## Principais features
