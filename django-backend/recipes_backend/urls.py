@@ -16,9 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .view import gerar_receita
+from .view import generate_recipe
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-     path("api/receitas/gerar/", gerar_receita),
+     path("api/recipes/generate/", generate_recipe),
 ]

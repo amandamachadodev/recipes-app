@@ -9,11 +9,11 @@ SYSTEM_PROMPT = (
     "Voce e um assistente culinario. Gere uma receita em JSON, sem texto extra. "
     "Formato exato:\n"
     "{\n"
-    '  "titulo": "string",\n'
-    '  "porcoes": "string",\n'
-    '  "tempo_preparo": "string",\n'
-    '  "ingredientes": ["string", "..."],\n'
-    '  "passos": ["string", "..."]\n'
+    '  "title": "string",\n'
+    '  "portions": "string",\n'
+    '  "preparationTime": "string",\n'
+    '  "ingredients": ["string", "..."],\n'
+    '  "steps": ["string", "..."]\n'
     "}\n"
     "Responda apenas com JSON valido."
 )
@@ -40,7 +40,7 @@ def create_openai_client() -> OpenAI:
 
 def parse_recipe_json(raw_content: str) -> dict[str, Any]:
     parsed = json.loads(raw_content)
-    required_keys = {"titulo", "porcoes", "tempo_preparo", "ingredientes", "passos"}
+    required_keys = {"title", "portions", "preparationTime", "ingredients", "steps"}
     if not required_keys.issubset(parsed.keys()):
         raise ValueError("Resposta da IA sem campos obrigatorios")
     return parsed
