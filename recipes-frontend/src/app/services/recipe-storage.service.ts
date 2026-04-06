@@ -14,6 +14,7 @@ export class RecipeStorageService {
       status: 'new',
       stepsCompleted: [],
       createdAt: new Date().toISOString(),
+      isFavorite: false,
     };
 
     const updated = [newRecipe, ...recipes];
@@ -59,8 +60,34 @@ export class RecipeStorageService {
     }));
   }
 
+  toggleFavorite(id: string): RecipeStorage | null {
+    return this.updateRecipe(id, (recipe) => ({
+      ...recipe,
+      isFavorite: !recipe.isFavorite,
+    }));
+  }
+
+  deleteRecipe(id: string): boolean {
+    const recipes = this.readRecipes();
+    const exists = recipes.some((r) => r.id === id);
+    if (!exists) return false;
+
+    const updated = recipes.filter((r) => r.id !== id);
+    this.writeRecipes(updated);
+
+    const last = localStorage.getItem(LAST_GENERATED_RECIPE_ID_KEY);
+    if (last === id) {
+      localStorage.removeItem(LAST_GENERATED_RECIPE_ID_KEY);
+    }
+    return true;
+  }
+
   getByStatus(status: RecipeStatus): RecipeStorage[] {
     return this.readRecipes().filter((r) => r.status === status);
+  }
+
+  getFavorites(): RecipeStorage[] {
+    return this.readRecipes().filter((r) => !!r.isFavorite);
   }
 
   getProgressPercent(recipe: RecipeStorage): number {

@@ -27,4 +27,17 @@ export class FinishedRecipesComponent implements OnInit {
     const updated = this.recipeStorageService.restartRecipe(recipeId);
     if (updated) this.router.navigate(['/in-progress', recipeId]);
   }
+
+  toggleFavorite(recipeId: string): void {
+    const updated = this.recipeStorageService.toggleFavorite(recipeId);
+    if (!updated) return;
+    const index = this.recipes.findIndex((r) => r.id === recipeId);
+    if (index >= 0) this.recipes[index] = updated;
+  }
+
+  delete(recipeId: string): void {
+    const ok = this.recipeStorageService.deleteRecipe(recipeId);
+    if (!ok) return;
+    this.recipes = this.recipes.filter((r) => r.id !== recipeId);
+  }
 }

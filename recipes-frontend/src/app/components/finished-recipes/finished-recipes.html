@@ -7,7 +7,22 @@
     <div class="grid" *ngIf="recipes.length > 0">
       <article class="card" *ngFor="let r of recipes">
         <header class="card-head">
-          <h3 class="title">{{ r.title }}</h3>
+          <div class="title-row">
+            <h3 class="title">{{ r.title }}</h3>
+            <button
+              class="icon-btn star"
+              [class.active]="r.isFavorite"
+              (click)="toggleFavorite(r.id)"
+              aria-label="{{ r.isFavorite ? 'Desfavoritar' : 'Favoritar' }}"
+              title="{{ r.isFavorite ? 'Desfavoritar' : 'Favoritar' }}"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                />
+              </svg>
+            </button>
+          </div>
           <p class="meta" *ngIf="r.finishedAt">
             Concluída em {{ r.finishedAt | date: 'dd/MM/yyyy HH:mm' }}
           </p>
@@ -20,6 +35,19 @@
 
         <footer class="card-actions">
           <button class="btn" (click)="restart(r.id)">Iniciar novamente</button>
+          <div class="spacer"></div>
+          <button
+            class="icon-btn trash"
+            (click)="delete(r.id)"
+            aria-label="Remover"
+            title="Remover"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M6 7h12l-1 14H7L6 7zm5-5h2l1 1h4v2H4V3h4l1-1zM9 9h2v10H9V9zm4 0h2v10h-2V9z"
+              />
+            </svg>
+          </button>
         </footer>
       </article>
     </div>

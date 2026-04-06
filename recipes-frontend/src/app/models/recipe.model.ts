@@ -19,4 +19,5 @@ export interface RecipeStorage extends Recipe {
   createdAt: string;
   startedAt?: string;
   finishedAt?: string;
+  isFavorite?: boolean;
 }

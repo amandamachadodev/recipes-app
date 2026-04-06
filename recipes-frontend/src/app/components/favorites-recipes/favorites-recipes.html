@@ -1,8 +1,8 @@
 <div class="page">
   <div class="wrap">
-    <h1>Receitas em preparo</h1>
+    <h1>Favoritas</h1>
 
-    <p class="subtitle" *ngIf="recipes.length === 0">Nenhuma receita em preparo.</p>
+    <p class="subtitle" *ngIf="recipes.length === 0">Nenhuma receita favoritada.</p>
 
     <div class="grid" *ngIf="recipes.length > 0">
       <article class="card" *ngFor="let r of recipes">
@@ -23,7 +23,9 @@
               </svg>
             </button>
           </div>
-          <p class="meta">{{ progress(r) }}% concluído</p>
+          <p class="meta">
+            {{ r.status === 'in_progress' ? 'Em preparo' : (r.status === 'completed' ? 'Concluída' : 'Nova') }}
+          </p>
         </header>
 
         <ul class="ingredients">
@@ -32,7 +34,9 @@
         </ul>
 
         <footer class="card-actions">
-          <button class="btn" (click)="continueRecipe(r.id)">Continuar preparo</button>
+          <button class="btn" (click)="continueOrRestart(r)">
+            {{ r.status === 'in_progress' ? 'Continuar preparo' : 'Iniciar novamente' }}
+          </button>
           <div class="spacer"></div>
           <button
             class="icon-btn trash"

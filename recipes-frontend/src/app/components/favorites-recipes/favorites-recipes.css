@@ -69,7 +69,6 @@ h1 {
   display: flex;
   justify-content: flex-end;
 }
-
 .card-actions .spacer {
   flex: 1;
 }
@@ -82,9 +81,6 @@ h1 {
   color: #fff;
   background: #2563eb;
   cursor: pointer;
-  transition:
-    filter 0.2s ease,
-    transform 0.05s ease;
 }
 .btn:hover {
   filter: brightness(1.05);
@@ -131,7 +127,6 @@ h1 {
 .icon-btn.star:hover svg {
   fill: #d1a21a;
 }
-
 .icon-btn.trash svg {
   fill: #9aa4b2;
 }

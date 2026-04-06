@@ -39,6 +39,13 @@ h1 {
   gap: 10px;
 }
 
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: space-between;
+}
+
 .title {
   margin: 0;
   font-size: 16px;
@@ -63,6 +70,10 @@ h1 {
   justify-content: flex-end;
 }
 
+.card-actions .spacer {
+  flex: 1;
+}
+
 .btn {
   border: 0;
   border-radius: 10px;
@@ -77,4 +88,50 @@ h1 {
 }
 .btn:active {
   transform: translateY(1px);
+}
+
+.icon-btn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 6px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background-color 0.2s ease,
+    transform 0.05s ease,
+    filter 0.2s ease;
+}
+.icon-btn svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+  fill: #9aa4b2;
+}
+.icon-btn:hover {
+  background: rgba(37, 99, 235, 0.06);
+}
+.icon-btn:active {
+  transform: translateY(1px);
+}
+
+.icon-btn.star svg {
+  fill: #c9ced6;
+}
+.icon-btn.star.active svg {
+  fill: #f59e0b;
+  filter: drop-shadow(0 2px 6px rgba(245, 158, 11, 0.35));
+}
+.icon-btn.star:hover svg {
+  fill: #d1a21a;
+}
+
+.icon-btn.trash svg {
+  fill: #9aa4b2;
+}
+.icon-btn.trash:hover svg {
+  fill: #ef4444;
 }
